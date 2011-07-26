@@ -31,7 +31,7 @@ function Validate()
 		<tr>
 			<td><form:label for="fileData" path="fileData">File</form:label><br />
 			</td>
-			<td><form:input path="fileData" id="image" type="file" /></td>
+			<td><form:input path="fileData" id="image" type="file" maxlength="5242880"/></td>
 		</tr>
 		<tr>
 			<td><br />
