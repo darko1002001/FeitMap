@@ -39,6 +39,12 @@
 		<td>
             <a href="${pageContext.request.contextPath}/public/edges/index">Edges</a> | 
 		</td>
+		<td>
+            <a href="${pageContext.request.contextPath}/public/uploadfileindex">Index</a> | 
+		</td>
+		<td>
+            <a href="${pageContext.request.contextPath}/public/uploadfile">Upload File</a> | 
+		</td>
 		</tr>
 	</table>
     </form>

@@ -16,6 +16,12 @@
     <definition name="homepage" extends="public_layout">
     	<put-attribute name="content" value="/WEB-INF/views/public/homepage.jsp"/>
     </definition>
+     <definition name="uploadfileindex" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/uploadfileindex.jsp"/>
+    </definition>
+     <definition name="uploadfile" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/uploadfile.jsp"/>
+    </definition>
     <!-- 
     <definition name="page.world.map" extends="public_layout">
     	<put-attribute name="content" value="/WEB-INF/views/public/worldMapPage.jspx"/>
