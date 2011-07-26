@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+body {
+	font-family: Gill Sans MT, Gill Sans, Verdana, sans-serif;
+	line-height: 1.6em;
+}
+body {
+			font-family: sans-serif;
+		}
+		.data{
+		width: 100%;
+		}
+		.data td {
+			border-collapse: collapse;
+			width: 20%;
+			border: 1px solid #aaa;
+			margin: 2px;
+			padding: 2px;
+		}
+		.data th {
+			font-weight: bold;
+			font-size: 14px;
+			background-color: #5C82FF;
+			color: black;
+		}
+.submit{
+	position:relative;
+	left:20%;
+}		
+		

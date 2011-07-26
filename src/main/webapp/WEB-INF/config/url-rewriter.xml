@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN" "urlrewrite3.0.dtd">
+<urlrewrite default-match-type="wildcard">
+
+  <rule>
+    <from>^/$</from>
+    <to>/public/</to>
+  </rule>
+
+  <!-- Handle CSS, images and JavaScript files -->
+  <rule>
+    <from>^/(css|images|js|swf|static|doc)/(.*)$</from>
+    <set type="response-header" name="Cache-Control">max-age=290304000, public</set>
+    <to>/$1/$2</to>
+  </rule>
+
+  <rule>
+    <from>^/public/$</from>
+    <to>public/index</to>
+  </rule>  
+  <rule>
+    <from>^/public/(.+)$</from>
+    <to>/public/$1</to>
+  </rule>
+   <rule>
+  <from>/**</from>
+  <to>/public/$1</to>
+ </rule>
+</urlrewrite>

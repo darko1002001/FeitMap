@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="public_layout" template="/WEB-INF/views/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+    </definition>
+	
+     <definition name="place" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/place.jsp"/>
+    </definition>
+     <definition name="edge" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/edge.jsp"/>
+    </definition>
+    <definition name="homepage" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/homepage.jsp"/>
+    </definition>
+    <!-- 
+    <definition name="page.world.map" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/worldMapPage.jspx"/>
+    </definition>
+    <definition name="page.raphael.map" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/raphaelMapPage.jspx"/>
+    </definition>    
+    <definition name="page.chart.zoom" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/chartZoomingPage.jspx"/>
+    </definition>        
+    <definition name="page.gauge" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/gaugePage.jspx"/>
+    </definition>  
+    <definition name="page.pie" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/piePage.jspx"/>
+    </definition>     
+    <definition name="page.tooltip" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/tooltipPage.jspx"/>
+    </definition>
+     -->
+</tiles-definitions>    
