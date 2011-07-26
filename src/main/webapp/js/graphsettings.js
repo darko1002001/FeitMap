@@ -67,7 +67,7 @@ function init(json){
             Log.write("centering " + node.name + "...");
             //Add the relation list in the right column.
             //This list is taken from the data property of each JSON node.
-            $jit.id('inner-details').innerHTML = node.data.relation;
+            $jit.id('inner-details').innerHTML = '<img id="image" src="' +node.data.imageUrl+'">';
         },
         
         //Add the name of the node in the correponding label
@@ -121,5 +121,5 @@ function init(json){
     });
     //end
     //append information about the root relations in the right column
-    $jit.id('inner-details').innerHTML = rgraph.graph.getNode(rgraph.root).data.relation;
+    $jit.id('inner-details').innerHTML = '<img id="image" src="' +rgraph.graph.getNode(rgraph.root).data.imageUrl+'">';
 }

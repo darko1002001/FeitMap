@@ -12,10 +12,10 @@ a {
 }
 
 #container {
-    width: 1000px;
+    width: 800px;
     height: 600px;
     margin:0 auto;
-    position:relative;
+    position:absolute;
 }
 
 #left-container, 
@@ -27,7 +27,7 @@ a {
 }
 
 #left-container, #right-container {
-    width:200px;
+    width:600px;
     color:#686c70;
     text-align: left;
     overflow: auto;
@@ -43,9 +43,12 @@ a {
     border-left:1px solid #ddd;
     
 }
-
+#image{
+	width:580px;
+	height:580px;
+}
 #right-container {
-    right:0;
+    right:-400px;
     background-image:url('col1.png');
     background-position:center left;
     border-right:1px solid #ddd;
@@ -57,7 +60,7 @@ a {
 
 #center-container {
     width:600px;
-    left:200px;
+    left:0px;
     background-color:#1a1a1a;
     color:#ccc;
 }
@@ -73,8 +76,9 @@ a {
 }
 
 #log {
-    position:absolute;
+    position:relative;
     top:10px;
+    right:20px;
     font-size:1.0em;
     font-weight:bold;
     color:#23A4FF;

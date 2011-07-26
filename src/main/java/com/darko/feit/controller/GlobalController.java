@@ -33,12 +33,20 @@ public class GlobalController{
 		List<Place> listPlaces = placesService.listPlaces();
 		JSONArray array = new JSONArray();
 		try {
+			JSONObject data;
+			JSONObject obj;
+			JSONArray adjacencies;
+
 		for (Place place : listPlaces) {
-			JSONObject obj = new JSONObject();
+				obj = new JSONObject();
+				data = new JSONObject();
+				adjacencies = new JSONArray();
 				obj.put("id", place.getId());
 				obj.put("name", place.getName());
+				data.put("imageUrl", place.getImageUrl());
+				data.put("description", place.getDescription());
+				obj.put("data", data);
 				System.out.println(obj.toString());
-				JSONArray adjacencies = new JSONArray();
 				Iterator<Edge> iter = place.getFromPlace().iterator();
 				while (iter.hasNext()) {
 					Edge edge = (Edge) iter.next();
@@ -70,7 +78,7 @@ public class GlobalController{
 			JSONObject obj = new JSONObject();
 				obj.put("id", place.getId());
 				obj.put("name", place.getName());
-				obj.put("imageUrl", place.getImageUrl());
+				obj.put("imageUrl",place.getImageUrl());
 				obj.put("description",place.getDescription());
 				array.put(obj);
 		}
