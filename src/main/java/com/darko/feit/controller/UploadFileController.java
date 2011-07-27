@@ -1,10 +1,16 @@
 package com.darko.feit.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.BindException;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.darko.feit.form.UploadItem;
+import com.mortennobel.imagescaling.ResampleFilters;
+import com.mortennobel.imagescaling.ResampleOp;
 
 @Controller
 @RequestMapping(value = "/uploadfile")
 public class UploadFileController {
+	private static final String IMAGE_DIRECTORY = "D:\\FeitMapImage\\";
 	private String uploadFolderPath;
 	ServletConfig config;
 
@@ -44,32 +53,54 @@ public class UploadFileController {
 			HttpSession session) {
 		try {
 
-			MultipartFile filea = uploadItem.getFileData();
-
+			MultipartFile multipartFile = uploadItem.getFileData();
 			InputStream inputStream = null;
 			OutputStream outputStream = null;
-			if (filea.getSize() > 0) {
-				inputStream = filea.getInputStream();
-				// File realUpload = new File("C:/");
-				outputStream = new FileOutputStream("D:\\test111\\"
-						+ filea.getOriginalFilename());
-				System.out.println("====22=========");
-				System.out.println(filea.getOriginalFilename());
-				System.out.println("=============");
-				int readBytes = 0;
-				byte[] buffer = new byte[8192];
-				while ((readBytes = inputStream.read(buffer, 0, 8192)) != -1) {
-					System.out.println("===ddd=======");
-					outputStream.write(buffer, 0, readBytes);
+			if (multipartFile.getSize() > 0) {
+				inputStream = multipartFile.getInputStream();
+				BufferedImage bufferedImage = ImageIO.read(inputStream);
+				while (bufferedImage.getWidth() > 320
+						&& bufferedImage.getHeight() > 320) {
+					ResampleOp resampleOp = new ResampleOp(bufferedImage.getWidth()/2, bufferedImage.getHeight()/2);
+					resampleOp.setFilter(ResampleFilters.getLanczos3Filter());
+					bufferedImage = resampleOp.filter(bufferedImage, null);
 				}
+				// File realUpload = new File("C:/");
+				outputStream = new FileOutputStream(new File(IMAGE_DIRECTORY,multipartFile.getOriginalFilename()));
+				ImageIO.write(
+						bufferedImage,
+						multipartFile.getOriginalFilename().substring(
+								multipartFile.getOriginalFilename().lastIndexOf('.')+1,
+								multipartFile.getOriginalFilename().length()),
+						outputStream);
 				outputStream.close();
 				inputStream.close();
-				session.setAttribute("uploadFile", "D:\\test111\\"
-						+ filea.getOriginalFilename());
+				/*session.setAttribute("uploadFile", IMAGE_DIRECTORY
+						+ filea.getOriginalFilename());*/
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/public/uploadfileindex";
+		return "redirect:/public/homepage";
+	}
+	
+	@RequestMapping(value="/getImage")
+	public void getImage(HttpServletResponse response){
+		
+		File imageFile = new File("D://image.jpg");
+		try {
+
+			BufferedInputStream bis = new BufferedInputStream(
+					new FileInputStream(imageFile));
+			int c;
+			while ((c = bis.read()) > -1) {
+				response.getOutputStream().write(c);
+			}
+			bis.close();
+			return;
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

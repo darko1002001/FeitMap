@@ -61,7 +61,7 @@
     <tr>
         <td>${place.name}</td>
         <td>${place.description}</td>
-        <td>${place.imageUrl}</td>
+        <td><a href="${place.imageUrl}"><img id="image" width=50px height=50px src="${place.imageUrl}"></a></td>
         <td>${place.validDestination}</td>
         <td><a href="delete/${place.id}">delete</a></td>
     </tr>

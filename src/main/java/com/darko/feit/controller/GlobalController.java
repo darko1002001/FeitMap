@@ -46,7 +46,7 @@ public class GlobalController{
 				data.put("imageUrl", place.getImageUrl());
 				data.put("description", place.getDescription());
 				obj.put("data", data);
-				System.out.println(obj.toString());
+			//	System.out.println(obj.toString());
 				Iterator<Edge> iter = place.getFromPlace().iterator();
 				while (iter.hasNext()) {
 					Edge edge = (Edge) iter.next();
@@ -59,11 +59,11 @@ public class GlobalController{
 			e.printStackTrace();
 		}
 		map.put("json", array);
-		try {
+	/*	try {
 			System.out.println(array.toString(1));
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
+		}*/
         return "homepage";
     }
 	
