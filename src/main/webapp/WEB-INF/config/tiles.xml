@@ -10,6 +10,9 @@
      <definition name="place" extends="public_layout">
     	<put-attribute name="content" value="/WEB-INF/views/public/place.jsp"/>
     </definition>
+     <definition name="place_add" extends="public_layout">
+    	<put-attribute name="content" value="/WEB-INF/views/public/place_add.jsp"/>
+    </definition>
      <definition name="edge" extends="public_layout">
     	<put-attribute name="content" value="/WEB-INF/views/public/edge.jsp"/>
     </definition>

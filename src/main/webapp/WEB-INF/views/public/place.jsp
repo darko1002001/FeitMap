@@ -15,25 +15,9 @@
  
 <h2>Places Manager</h2>
  
-<form:form id="placesForm" method="post" action="add" commandName="place">
+<form:form id="placesForm" method="get" action="add" commandName="place">
   <fieldset>
     <table>
-    <tr>
-        <td><form:label path="name"><spring:message code="label.name" /></form:label></td>
-        <td><form:input id="name" path="name" /></td>
-    </tr>
-    <tr>
-        <td><form:label path="description"><spring:message code="label.description"/></form:label></td>
-        <td><form:input id="description" path="description" /></td>
-    </tr>
-    <tr>
-        <td><form:label path="imageUrl"><spring:message code="label.imageurl"/></form:label></td>
-        <td><form:input path="imageUrl" /></td>
-    </tr>
-    <tr>
-        <td><form:label path="validDestination"><spring:message code="label.isvaliddestination"/></form:label></td>
-        <td><form:checkbox path="validDestination"/></td>
-    </tr>
     <tr>
         <td >
             <input type="submit" class="submit" value="<spring:message code="label.addplace"/>"/>
@@ -63,7 +47,7 @@
         <td>${place.description}</td>
         <td><a href="${place.imageUrl}"><img id="image" width=50px height=50px src="${place.imageUrl}"></a></td>
         <td>${place.validDestination}</td>
-        <td><a href="delete/${place.id}">delete</a></td>
+        <td><a href="delete/${place.id}">delete</a> | <a href="add/${place.id}">update</a></td>
     </tr>
 </c:forEach>
 </tbody>

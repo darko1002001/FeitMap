@@ -9,12 +9,10 @@ import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.darko.feit.form.Edge;
 import com.darko.feit.form.Place;
 
-@Transactional
 @Repository
 public class PlacesDAOImpl implements PlacesDAO {
 
@@ -22,7 +20,7 @@ public class PlacesDAOImpl implements PlacesDAO {
 	private SessionFactory sessionFactory;
 
 	public void addPlace(Place place) {
-		sessionFactory.getCurrentSession().save(place);
+		sessionFactory.getCurrentSession().persist(place);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -63,5 +61,13 @@ public class PlacesDAOImpl implements PlacesDAO {
 		}
 
 	}
+
+	public Place getPlace(Integer id) {
+		Place place = (Place) sessionFactory.getCurrentSession().get(
+				Place.class, id);
+		return place;
+		
+	}
+
 
 }

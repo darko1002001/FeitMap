@@ -26,4 +26,9 @@ body {
 	position:relative;
 	left:20%;
 }		
-		
+a{
+	border : 0;	
+}
+a:hover{
+	border : 3;	
+}

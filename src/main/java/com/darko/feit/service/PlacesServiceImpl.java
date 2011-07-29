@@ -15,16 +15,24 @@ public class PlacesServiceImpl implements PlacesService {
 	@Autowired
 	private PlacesDAO placesDAO;
 
+	@Transactional
 	public void addPlace(Place place) {
 		placesDAO.addPlace(place);
 	}
 
+	@Transactional
 	public List<Place> listPlaces() {
 		return placesDAO.listPlaces();
 	}
 
+	@Transactional
 	public void removePlace(Integer id) {
 		placesDAO.removePlace(id);
+	}
+
+	@Transactional
+	public Place getPlace(Integer id) {
+		return placesDAO.getPlace(id);
 	}
 
 }
