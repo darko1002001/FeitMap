@@ -65,10 +65,9 @@ public class PlacesController {
     public ModelAndView updateExistingPlace(final Model model, @PathVariable("placeId")
     Integer placeId,final HttpServletRequest request, final HttpServletResponse response) {
     	
-    	Place place = new Place();
-    	place.setId(placeId);
     	
-        model.addAttribute("place", placesService.getPlace(placeId));
+        Place place = placesService.getPlace(placeId);
+		model.addAttribute("place", place);
        
         return new ModelAndView("place_add");
 	}

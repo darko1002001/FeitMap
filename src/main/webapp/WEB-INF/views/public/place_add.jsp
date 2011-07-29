@@ -20,6 +20,7 @@
 <form:form id="placesForm" method="post" action="persist" commandName="place">
   <fieldset>
     <table>
+    <form:input type="hidden" path="id" name="id"></form:input>
     <tr>
         <td><form:label path="name"><spring:message code="label.name" /></form:label></td>
         <td><form:input id="name" path="name" /></td>
@@ -30,7 +31,7 @@
     </tr>
     <tr>
         <td><form:label path="imageUrl"><spring:message code="label.imageurl"/></form:label></td>
-        <td><form:input id="imageUrl" path="imageUrl" /></td>
+        <td><form:input id="imageUrl" path="imageUrl" style="width:500px;" /></td>
     </tr>
     <tr>
         <td><form:label path="validDestination"><spring:message code="label.isvaliddestination"/></form:label></td>
@@ -38,7 +39,7 @@
     </tr>
     <tr>
         <td >
-            <input type="submit" class="submit" value="<spring:message code="label.addplace"/>"/>
+            <input id="submit" type="submit" class="submit" />
         </td>
     </tr>
 </table>
@@ -69,9 +70,17 @@
     		}
     	}
     });
+    setLabelText();
   });
   </script>
    <script type="text/javascript">
+   function setLabelText(){
+	   if('${place.id}'===''){
+		   placesForm.submit.value='<spring:message code="label.addplace"/>';
+	   }else{
+		   placesForm.submit.value='<spring:message code="label.updateplace"/>';
+	   }
+   };
     function fetchImages() {
     	jQuery('#mycarousel').jcarousel({
             itemLoadCallback: mycarousel_itemLoadCallback,

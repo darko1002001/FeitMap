@@ -20,7 +20,18 @@ public class PlacesDAOImpl implements PlacesDAO {
 	private SessionFactory sessionFactory;
 
 	public void addPlace(Place place) {
-		sessionFactory.getCurrentSession().persist(place);
+		
+		if(place.getId()!=null){
+		Place placeFromDb = (Place) sessionFactory.getCurrentSession().get(
+				Place.class, place.getId());
+		placeFromDb.setDescription(place.getDescription());
+		placeFromDb.setName(place.getName());
+		placeFromDb.setImageUrl(place.getImageUrl());
+		sessionFactory.getCurrentSession().persist(placeFromDb);
+		}else{
+			sessionFactory.getCurrentSession().persist(place);
+		}
+		
 	}
 
 	@SuppressWarnings("unchecked")
