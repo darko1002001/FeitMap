@@ -87,7 +87,20 @@ public class UploadFileController {
 	@RequestMapping(value="/getImage")
 	public void getImage(HttpServletResponse response){
 		
-		File imageFile = new File("D://image.jpg");
+		File imageFile = null;
+		File dir = new File(IMAGE_DIRECTORY);
+		String[] children = dir.list();
+		if (children == null) {
+		    // Either dir does not exist or is not a directory
+		} else {
+		    for (int i=0; i<children.length; i++) {
+		        // Get filename of file or directory
+		    	System.out.println(children[i]);
+		    	imageFile = new File(dir,children[i]);
+		      //  String filename = children[i];
+		    }
+		}
+		
 		try {
 
 			BufferedInputStream bis = new BufferedInputStream(
