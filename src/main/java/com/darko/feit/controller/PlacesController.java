@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.darko.feit.form.Image;
 import com.darko.feit.form.Place;
+import com.darko.feit.service.ImagesService;
 import com.darko.feit.service.PlacesService;
 import com.darko.feit.util.Constants;
+import com.darko.feit.util.Utils;
 
 
 @Controller
@@ -34,6 +39,9 @@ public class PlacesController {
     @Autowired
     private PlacesService placesService;
  
+    @Autowired
+    private ImagesService imagesService;
+    
     @RequestMapping(PLACES_INDEX)
     public String listPlaces(Map<String, Object> map) {
  
@@ -82,11 +90,18 @@ public class PlacesController {
     
     @RequestMapping(value = {PLACES_ROOT+"/add/images", PLACES_ROOT+"/images" } ,method = RequestMethod.GET)
     public @ResponseBody String getImages() {
-    	List<Place> listPlaces = placesService.listPlaces();
+    	List<Image> listImages = imagesService.listImages();
     	JSONArray array= new JSONArray();
-    	
-    	for (Place place : listPlaces) {
-    		array.put(place.getImageUrl());
+    	JSONObject obj;
+    	try {
+			for (Image image: listImages) {
+				obj = new JSONObject();
+				obj.put("url", Utils.getFullFilePathFromPlace(image.getId()));
+				obj.put("id",image.getId());
+				array.put(obj);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
     	
         return array.toString();

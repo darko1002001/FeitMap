@@ -77,8 +77,5 @@ public class PlacesDAOImpl implements PlacesDAO {
 		Place place = (Place) sessionFactory.getCurrentSession().get(
 				Place.class, id);
 		return place;
-		
 	}
-
-
 }

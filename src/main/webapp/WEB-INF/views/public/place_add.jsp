@@ -108,7 +108,7 @@ function mycarousel_itemAddCallback(carousel, first, last, data)
     // Simply add all items at once and set the size accordingly.
 	imageArray=data;
     for (i = 0; i < data.length; i++) {
-        carousel.add(i+1, mycarousel_getItemHTML(data[i],i));
+        carousel.add(i+1, mycarousel_getItemHTML(data[i].url,i));
     }
 
     carousel.size(data.length);
@@ -122,7 +122,7 @@ function mycarousel_getItemHTML(url,i)
     return '<img onclick="javascript:onImageClick('+ i + ');" src="' + url + '" width="75" height="75" alt="" />';
 };
 function onImageClick(position){
-	placesForm.imageUrl.value=imageArray[position];
+	placesForm.imageUrl.value=imageArray[position].id;
 };
 </script>
 </html>

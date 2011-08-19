@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.BindException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
@@ -16,23 +18,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.darko.feit.form.Image;
 import com.darko.feit.form.UploadItem;
+import com.darko.feit.service.ImagesService;
+import com.darko.feit.util.Constants;
 import com.mortennobel.imagescaling.ResampleFilters;
 import com.mortennobel.imagescaling.ResampleOp;
 
 @Controller
 @RequestMapping(value = "/uploadfile")
 public class UploadFileController {
-	private static final String IMAGE_DIRECTORY = "D:\\FeitMapImage\\";
+	
 	private String uploadFolderPath;
 	ServletConfig config;
 
+	@Autowired
+	private ImagesService imageService;
+	
 	public String getUploadFolderPath() {
 		return uploadFolderPath;
 	}
@@ -66,7 +75,14 @@ public class UploadFileController {
 					bufferedImage = resampleOp.filter(bufferedImage, null);
 				}
 				// File realUpload = new File("C:/");
-				outputStream = new FileOutputStream(new File(IMAGE_DIRECTORY,multipartFile.getOriginalFilename()));
+				Calendar calendar = Calendar.getInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss_");
+				String path = sdf.format(calendar.getTime())+multipartFile.getOriginalFilename();
+				
+				System.out.println(path);
+				System.out.println(multipartFile.getContentType());
+				File file = new File(Constants.IMAGE_DIRECTORY,path);
+				outputStream = new FileOutputStream(file);
 				ImageIO.write(
 						bufferedImage,
 						multipartFile.getOriginalFilename().substring(
@@ -75,45 +91,24 @@ public class UploadFileController {
 						outputStream);
 				outputStream.close();
 				inputStream.close();
+				
+				Image image = new Image();
+				image.setPath(path);
+				image.setContentType(multipartFile.getContentType());
+				image.setSize(multipartFile.getSize());
+				image.setFilename(multipartFile.getOriginalFilename());
+				
+				Integer addImageId = imageService.addImage(image);
+				
+				System.out.println("Uploaded Image ID" + String.valueOf(addImageId));
 				/*session.setAttribute("uploadFile", IMAGE_DIRECTORY
 						+ filea.getOriginalFilename());*/
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/public/homepage";
+		return "redirect:/public/uploadfile";
 	}
 	
-	@RequestMapping(value="/getImage")
-	public void getImage(HttpServletResponse response){
-		
-		File imageFile = null;
-		File dir = new File(IMAGE_DIRECTORY);
-		String[] children = dir.list();
-		if (children == null) {
-		    // Either dir does not exist or is not a directory
-		} else {
-		    for (int i=0; i<children.length; i++) {
-		        // Get filename of file or directory
-		    	System.out.println(children[i]);
-		    	imageFile = new File(dir,children[i]);
-		      //  String filename = children[i];
-		    }
-		}
-		
-		try {
-
-			BufferedInputStream bis = new BufferedInputStream(
-					new FileInputStream(imageFile));
-			int c;
-			while ((c = bis.read()) > -1) {
-				response.getOutputStream().write(c);
-			}
-			bis.close();
-			return;
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 }
