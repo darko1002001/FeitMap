@@ -38,6 +38,10 @@ public class Place {
 	    @Type(type = "org.hibernate.type.NumericBooleanType")
 	    private boolean validDestination;
 	    
+	    @Column(name="ISVALIDSTART")
+	    @Type(type = "org.hibernate.type.NumericBooleanType")
+	    private boolean validStart;
+	    
 	    @OneToMany(fetch=FetchType.EAGER)
 		@JoinColumn(name = "FROMPLACE_ID")
 		private Set<Edge> fromPlace = new HashSet<Edge>(0);
@@ -75,6 +79,12 @@ public class Place {
 		}
 		public void setImageUrl(String imageUrl) {
 			this.imageUrl = imageUrl;
+		}
+		public boolean isValidStart() {
+			return validStart;
+		}
+		public void setValidStart(boolean validStart) {
+			this.validStart = validStart;
 		}
 		public boolean isValidDestination() {
 			return validDestination;

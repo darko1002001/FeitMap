@@ -27,6 +27,8 @@ public class PlacesDAOImpl implements PlacesDAO {
 		placeFromDb.setDescription(place.getDescription());
 		placeFromDb.setName(place.getName());
 		placeFromDb.setImageUrl(place.getImageUrl());
+		placeFromDb.setValidDestination(place.isValidDestination());
+		placeFromDb.setValidStart(place.isValidStart());
 		sessionFactory.getCurrentSession().persist(placeFromDb);
 		}else{
 			sessionFactory.getCurrentSession().persist(place);

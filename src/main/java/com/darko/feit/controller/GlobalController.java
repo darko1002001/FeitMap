@@ -117,7 +117,6 @@ public class GlobalController{
 			response.getWriter().write(root.toString());
 			response.getWriter().flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

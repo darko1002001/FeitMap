@@ -37,6 +37,10 @@
         <td><form:label path="validDestination"><spring:message code="label.isvaliddestination"/></form:label></td>
         <td><form:checkbox path="validDestination"/></td>
     </tr>
+     <tr>
+        <td><form:label path="validStart"><spring:message code="label.isvalidstart"/></form:label></td>
+        <td><form:checkbox path="validStart"/></td>
+    </tr>
     <tr>
         <td >
             <input id="submit" type="submit" class="submit" />
